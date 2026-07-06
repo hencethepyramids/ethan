@@ -13,7 +13,7 @@ const ICONS = {
 }
 
 const LINKS = [
-  { label: 'GitHub', href: 'https://github.com' },
+  { label: 'GitHub', href: 'https://github.com/hencethepyramids' },
   { label: 'LinkedIn', href: 'https://linkedin.com' },
   { label: 'X', href: 'https://x.com' },
 ]

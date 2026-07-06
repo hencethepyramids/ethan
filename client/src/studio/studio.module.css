@@ -410,6 +410,14 @@
 /* ───────── project case-study extras ───────── */
 .projTagline { font-size: clamp(18px, 2.4vw, 26px); font-weight: 300; line-height: 1.45; color: var(--ink); max-width: 42ch; margin-top: 18px; }
 .projStack { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+.projLink {
+  display: inline-block; margin-top: 26px;
+  font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.08em;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: 3px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.projLink:hover { color: var(--accent); border-color: var(--accent); }
 
 /* ───────── 404 ───────── */
 .notFound { min-height: 72vh; display: flex; align-items: center; padding: 130px var(--pad) 60px; }

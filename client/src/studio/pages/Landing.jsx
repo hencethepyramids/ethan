@@ -127,7 +127,7 @@ function Work() {
       <Reveal className={styles.secHead}>
         <span className={styles.secNum}>(01)</span>
         <h2 className={styles.secTitle}>SELECTED WORK</h2>
-        <span className={styles.secMeta}>{PROJECTS.length} projects</span>
+        <span className={styles.secMeta}>{PROJECTS.length} project{PROJECTS.length === 1 ? '' : 's'}</span>
       </Reveal>
 
       <div className={styles.workList}>

@@ -53,6 +53,11 @@ export default function WorkDetail() {
           <div className={styles.projStack}>
             {project.stack.map((s) => <span key={s} className={styles.postTag}>{s}</span>)}
           </div>
+          {project.link && (
+            <a className={styles.projLink} href={project.link} target="_blank" rel="noreferrer">
+              {project.link.replace(/^https?:\/\//, '')} ↗
+            </a>
+          )}
         </motion.div>
 
         <motion.div className={styles.articleBody}
@@ -60,12 +65,14 @@ export default function WorkDetail() {
           {project.body.map((b, i) => <Block key={i} block={b} />)}
         </motion.div>
 
-        <div className={styles.articleNav}>
-          <span className={styles.articleNavLabel}>NEXT PROJECT</span>
-          <Link to={`/work/${next.slug}`} className={styles.articleNext}>
-            {next.title} <span>→</span>
-          </Link>
-        </div>
+        {next.slug !== project.slug && (
+          <div className={styles.articleNav}>
+            <span className={styles.articleNavLabel}>NEXT PROJECT</span>
+            <Link to={`/work/${next.slug}`} className={styles.articleNext}>
+              {next.title} <span>→</span>
+            </Link>
+          </div>
+        )}
       </article>
 
       <StudioFooter />
