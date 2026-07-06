@@ -1,7 +1,7 @@
-# Ethan Ellerstein — Portfolio
+# Ethan Ellerstein - Portfolio
 
 A monochrome studio portfolio with an iridescent accent system, a blog
-("Journal"), and a contact form — backed by an ASP.NET Core API.
+("Journal"), and a contact form - backed by an ASP.NET Core API.
 
 ## Stack
 
@@ -33,7 +33,7 @@ cd server
 dotnet run
 ```
 
-**2. Client** (port 5173) — in a second terminal
+**2. Client** (port 5173) - in a second terminal
 ```bash
 cd client
 npm install   # first time only
@@ -43,7 +43,7 @@ npm run dev
 Then open http://localhost:5173.
 
 Vite proxies `/api/*` to the .NET server, so there's no CORS or hardcoded URLs
-in the frontend. If the API is not running, the site still works — blog content
+in the frontend. If the API is not running, the site still works - blog content
 falls back to the bundled `client/src/studio/data/posts.js`, and the contact
 form surfaces a friendly error pointing to the email link.
 

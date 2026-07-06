@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
 
-/* reset — kills the default body margin (the "stacked paper" border) */
+/* reset - kills the default body margin (the "stacked paper" border) */
 html, body { margin: 0; padding: 0; }
 
 /* themed page background + subtle dot-grid texture to fill whitespace */

@@ -53,7 +53,7 @@ Prioritize, in order:
 4. User engagement
 5. Technical execution
 
-Restraint is allowed — but never be generic. (Awwwards winners are usually
+Restraint is allowed - but never be generic. (Awwwards winners are usually
 *refined* and novel, not loud and cluttered.)
 
 ## VISUAL DIRECTION
@@ -68,19 +68,19 @@ interactive museums, luxury product experiences, game world design.
 
 ## 3D / MOTION
 
-3D and motion should never be purely decorative — they must support narrative
+3D and motion should never be purely decorative - they must support narrative
 and branding. When proposing them, explain why they exist, how they advance the
 story, how the user interacts, and the implementation approach. Keep
 performance in mind.
 
 ## SUBJECT
 
-**Ethan Ellerstein** — see positioning confirmed with the user. Candidate
+**Ethan Ellerstein** - see positioning confirmed with the user. Candidate
 threads: Computer Science grad, full-stack developer, AI / agent development,
 Microsoft AI ecosystem (Azure, Copilot Studio, Power Platform), mobile, and a
 strong frontend/UI craft + cybersecurity interest.
 
-The portfolio should not merely showcase projects — it should communicate a
+The portfolio should not merely showcase projects - it should communicate a
 clear point of view about who Ethan is and where he's going. Visitors should
 immediately grasp: technical depth, creative thinking, product mindset, and
 range.

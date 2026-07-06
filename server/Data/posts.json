@@ -7,12 +7,12 @@
     "tags": ["AI", "Azure"],
     "excerpt": "Agents demo beautifully and ship painfully. Notes on tool-calling, guardrails, and the boring infrastructure that actually decides whether they survive contact with real users.",
     "body": [
-      { "type": "p", "text": "A working agent demo and a production agent are almost two different products. The demo needs one happy path to look magical. Production needs every unhappy path to fail safely — and there are a lot of them." },
+      { "type": "p", "text": "A working agent demo and a production agent are almost two different products. The demo needs one happy path to look magical. Production needs every unhappy path to fail safely - and there are a lot of them." },
       { "type": "h", "text": "Tool-calling is the easy 80%" },
       { "type": "p", "text": "Wiring an LLM to functions is mostly solved. The hard part is everything around it: validating arguments, handling partial failures, retrying idempotently, and making the model recover gracefully when a tool returns something it did not expect." },
       { "type": "quote", "text": "The model is the cheapest, least reliable component in the system. Design around that, not against it." },
       { "type": "h", "text": "Guardrails are a product surface" },
-      { "type": "p", "text": "Refusals, rate limits, and scope boundaries are not afterthoughts — users feel them constantly. Treat them like UI: clear, fast, and honest about what the agent can and cannot do." },
+      { "type": "p", "text": "Refusals, rate limits, and scope boundaries are not afterthoughts - users feel them constantly. Treat them like UI: clear, fast, and honest about what the agent can and cannot do." },
       { "type": "p", "text": "The agents that made it to production were never the most capable ones. They were the most predictable." }
     ]
   },
@@ -24,7 +24,7 @@
     "tags": ["Full-stack", "React"],
     "excerpt": "Most frontend bugs are really data bugs wearing a costume. How I structure React apps so the UI degrades gracefully when the server has a bad day.",
     "body": [
-      { "type": "p", "text": "Every interface is a bet about the shape of your data. The interesting question is what happens when that bet is wrong — when the field is null, the array is empty, or the request just never comes back." },
+      { "type": "p", "text": "Every interface is a bet about the shape of your data. The interesting question is what happens when that bet is wrong - when the field is null, the array is empty, or the request just never comes back." },
       { "type": "h", "text": "Model the loading states first" },
       { "type": "p", "text": "Before I write the happy-path render, I enumerate loading, empty, error, and partial states. If those four feel right, the success state almost designs itself." },
       { "type": "quote", "text": "A UI that only looks good with perfect data is a prototype, not a product." },
@@ -37,7 +37,7 @@
     "date": "2026-02-21",
     "read": "4 min",
     "tags": ["Security"],
-    "excerpt": "Security is not a feature you add at the end. It is a way of reading your own systems — assuming every input is hostile and every boundary is a target.",
+    "excerpt": "Security is not a feature you add at the end. It is a way of reading your own systems - assuming every input is hostile and every boundary is a target.",
     "body": [
       { "type": "p", "text": "The most useful security habit has nothing to do with tools. It is a question you ask constantly: if I wanted to break this, where would I start?" },
       { "type": "h", "text": "Every input is hostile" },
@@ -52,11 +52,11 @@
     "date": "2026-01-09",
     "read": "4 min",
     "tags": ["Craft"],
-    "excerpt": "The advice is always to specialize. I went the other way — AI, full-stack, and security — and the range turned out to be the advantage, not the compromise.",
+    "excerpt": "The advice is always to specialize. I went the other way - AI, full-stack, and security - and the range turned out to be the advantage, not the compromise.",
     "body": [
       { "type": "p", "text": "For a while I worried that working across AI, engineering, and security meant I would be mediocre at all three. The opposite happened. The connections between them became the thing I was actually good at." },
       { "type": "quote", "text": "Specialists go deep. Generalists go between. Products need both, but the in-between is lonelier and more valuable than people admit." },
-      { "type": "p", "text": "Range is not a lack of focus. For me it is the focus — on the seams where these fields meet, which is exactly where the interesting problems live." }
+      { "type": "p", "text": "Range is not a lack of focus. For me it is the focus - on the seams where these fields meet, which is exactly where the interesting problems live." }
     ]
   }
 ]

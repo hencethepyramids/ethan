@@ -17,7 +17,7 @@ export default function NotFound() {
       <StudioNav />
       <section className={styles.notFound}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
-          <div className={styles.kicker}><span className={styles.kickerLine} /> ERROR — 404</div>
+          <div className={styles.kicker}><span className={styles.kickerLine} /> ERROR - 404</div>
           <h1 className={styles.notFoundCode}>LOST</h1>
           <p className={styles.notFoundText}>
             This page wandered off. Let’s get you back to something that exists.

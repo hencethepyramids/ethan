@@ -26,7 +26,7 @@ List<Post> LoadPosts()
 
 app.MapGet("/api/health", () => Results.Ok(new { status = "ok" }));
 
-// List — metadata only (no body), newest first.
+// List - metadata only (no body), newest first.
 app.MapGet("/api/posts", () =>
 {
     var posts = LoadPosts()
@@ -35,14 +35,14 @@ app.MapGet("/api/posts", () =>
     return Results.Ok(posts);
 });
 
-// Single — full post including body.
+// Single - full post including body.
 app.MapGet("/api/posts/{slug}", (string slug) =>
 {
     var post = LoadPosts().FirstOrDefault(p => p.Slug == slug);
     return post is null ? Results.NotFound(new { error = "Post not found." }) : Results.Ok(post);
 });
 
-// Contact — validate + persist to a JSON-lines log.
+// Contact - validate + persist to a JSON-lines log.
 app.MapPost("/api/contact", async (ContactMessage msg) =>
 {
     if (string.IsNullOrWhiteSpace(msg.Name) ||
@@ -65,7 +65,7 @@ app.MapPost("/api/contact", async (ContactMessage msg) =>
         Path.Combine(dataDir, "contact-messages.jsonl"),
         JsonSerializer.Serialize(record, json) + Environment.NewLine);
 
-    return Results.Ok(new { ok = true, message = "Thanks — I'll be in touch soon." });
+    return Results.Ok(new { ok = true, message = "Thanks - I'll be in touch soon." });
 });
 
 app.Run();
