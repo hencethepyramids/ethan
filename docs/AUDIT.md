@@ -46,14 +46,16 @@ backend hardening, half day a11y/SEO, half day deploy config + git, remainder mi
 
 ## CRITICAL
 
-### C1. Social links point at placeholder domains
+### C1. Social links point at placeholder domains — *resolved 2026-07-05: GitHub + LinkedIn
+real, X removed*
 - **File:** `client/src/studio/components/Socials.jsx:15-19`
 - **Impact:** A recruiter clicking GitHub lands on github.com's homepage. On a portfolio this is
   the single most damaging bug on the site. It reads as "shipped without checking".
 - **Fix:** Point at real profiles, or remove icons for profiles that don't exist. Blocks launch.
 - **Confidence:** 100%.
-- *Update 2026-07-05: GitHub now points at the real profile. LinkedIn and X still placeholders —
-  fix or remove before launch.*
+- *Update 2026-07-05: GitHub and LinkedIn now point at real profiles; X removed (unused). Also
+  the stats row is now honest: "1 product live" and "0 trackers shipped" replace the
+  unverifiable claims.*
 
 ### C2. Placeholder projects/blog presented as real work
 - **Files:** `client/src/studio/data/projects.js` (all 5 projects), `client/src/studio/data/posts.js:1`
