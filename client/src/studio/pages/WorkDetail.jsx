@@ -1,0 +1,74 @@
+import { useEffect } from 'react'
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import StudioNav from '../components/StudioNav'
+import StudioFooter from '../components/StudioFooter'
+import Grain from '../components/Grain'
+import { getProject, PROJECTS } from '../data/projects'
+import { useDocumentTitle } from '../useDocumentTitle'
+import styles from '../studio.module.css'
+import '../studio.css'
+
+const ease = [0.16, 1, 0.3, 1]
+
+function Block({ block }) {
+  if (block.type === 'h') return <h2 className={styles.articleH}>{block.text}</h2>
+  if (block.type === 'quote') return <blockquote className={styles.articleQuote}>{block.text}</blockquote>
+  return <p className={styles.articleP}>{block.text}</p>
+}
+
+export default function WorkDetail() {
+  const { slug } = useParams()
+  const navigate = useNavigate()
+  const project = getProject(slug)
+  useEffect(() => { window.scrollTo(0, 0) }, [slug])
+  useDocumentTitle(project ? project.title : 'Work')
+
+  if (!project) return <Navigate to="/" replace />
+
+  const idx = PROJECTS.findIndex((p) => p.slug === slug)
+  const next = PROJECTS[(idx + 1) % PROJECTS.length]
+  const backToWork = (e) => {
+    e.preventDefault(); navigate('/')
+    setTimeout(() => document.getElementById('work')?.scrollIntoView(), 80)
+  }
+
+  return (
+    <motion.div className={`studio-root ${styles.root}`}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+      <Grain />
+      <StudioNav />
+
+      <article className={styles.article}>
+        <motion.div className={styles.articleHead}
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
+          <a href="/" onClick={backToWork} className={styles.backLink}>← Work</a>
+          <div className={styles.articleMeta}>
+            <span>{project.year}</span><span className={styles.metaDot}>·</span>
+            <span>{project.cat}</span><span className={styles.metaDot}>·</span>
+            <span>{project.role}</span>
+          </div>
+          <h1 className={styles.articleTitle}>{project.title}</h1>
+          <p className={styles.projTagline}>{project.tagline}</p>
+          <div className={styles.projStack}>
+            {project.stack.map((s) => <span key={s} className={styles.postTag}>{s}</span>)}
+          </div>
+        </motion.div>
+
+        <motion.div className={styles.articleBody}
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.7, ease }}>
+          {project.body.map((b, i) => <Block key={i} block={b} />)}
+        </motion.div>
+
+        <div className={styles.articleNav}>
+          <span className={styles.articleNavLabel}>NEXT PROJECT</span>
+          <Link to={`/work/${next.slug}`} className={styles.articleNext}>
+            {next.title} <span>→</span>
+          </Link>
+        </div>
+      </article>
+
+      <StudioFooter />
+    </motion.div>
+  )
+}

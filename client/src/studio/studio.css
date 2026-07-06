@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+
+/* reset — kills the default body margin (the "stacked paper" border) */
+html, body { margin: 0; padding: 0; }
+
+/* themed page background + subtle dot-grid texture to fill whitespace */
+html {
+  background-color: #F4F3EF;
+  background-image: radial-gradient(circle, rgba(11, 11, 11, 0.08) 1.2px, transparent 1.2px);
+  background-size: 30px 30px;
+  transition: background-color 0.45s ease;
+}
+html[data-theme="dark"] {
+  background-color: #0C0C0E;
+  background-image: radial-gradient(circle, rgba(241, 240, 235, 0.07) 1.2px, transparent 1.2px);
+}
+
+.studio-root {
+  --bg: #F4F3EF;
+  --ink: #0B0B0B;
+  --dim: #8C887E;
+  --rule: #DEDBD2;
+  --accent: #7C5CFF;
+  --irid: linear-gradient(115deg,
+    #00C2FF 0%, #7C5CFF 22%, #FF4DD2 44%, #FF8A3D 64%, #22E0A6 84%, #00C2FF 100%);
+  --on-accent: #FFFFFF;
+
+  background: transparent;       /* let the themed html background + dots show */
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+html[data-theme="dark"] .studio-root {
+  --bg: #0C0C0E;
+  --ink: #F1F0EB;
+  --dim: #7C7A72;
+  --rule: rgba(241, 240, 235, 0.13);
+}
+
+.studio-root * { box-sizing: border-box; }
+.studio-root ::selection { background: var(--accent); color: #fff; }
+
+/* NOTE: animation keyframes live in studio.module.css so the CSS-module class
+   references resolve to the same scoped names. */

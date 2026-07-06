@@ -1,0 +1,6 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# local tool settings (machine-specific Claude Code permissions)
+.claude/settings.local.json
