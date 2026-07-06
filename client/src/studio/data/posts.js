@@ -71,5 +71,7 @@ export const POSTS = [
 
 export const getPost = (slug) => POSTS.find((p) => p.slug === slug)
 
+// timeZone: 'UTC' matches how ISO date-only strings are parsed; without it,
+// every date renders one day early for visitors west of Greenwich.
 export const fmtDate = (iso) =>
-  new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })

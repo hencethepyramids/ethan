@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+/* Fonts load via <link> in index.html (preconnect + stylesheet) instead of a
+   CSS @import, which browsers discover late and block rendering on. */
 
 /* reset - kills the default body margin (the "stacked paper" border) */
 html, body { margin: 0; padding: 0; }

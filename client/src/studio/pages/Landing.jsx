@@ -10,7 +10,8 @@ import ContactForm from '../components/ContactForm'
 import Socials from '../components/Socials'
 import { POSTS, fmtDate } from '../data/posts'
 import { PROJECTS } from '../data/projects'
-import { useDocumentTitle } from '../useDocumentTitle'
+import { useSeo } from '../useSeo'
+import { landingMeta } from '../seo'
 import styles from '../studio.module.css'
 import '../studio.css'
 
@@ -268,7 +269,7 @@ function Contact() {
 }
 
 export default function Landing() {
-  useDocumentTitle()
+  useSeo(landingMeta())
   useEffect(() => {
     const prev = document.documentElement.style.scrollBehavior
     document.documentElement.style.scrollBehavior = 'smooth'

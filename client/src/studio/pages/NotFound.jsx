@@ -3,14 +3,15 @@ import { motion } from 'framer-motion'
 import StudioNav from '../components/StudioNav'
 import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
-import { useDocumentTitle } from '../useDocumentTitle'
+import { useSeo } from '../useSeo'
+import { notFoundMeta } from '../seo'
 import styles from '../studio.module.css'
 import '../studio.css'
 
 const ease = [0.16, 1, 0.3, 1]
 
 export default function NotFound() {
-  useDocumentTitle('Page not found')
+  useSeo(notFoundMeta())
   return (
     <div className={`studio-root ${styles.root}`}>
       <Grain />

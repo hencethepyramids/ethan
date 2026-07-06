@@ -47,6 +47,15 @@ in the frontend. If the API is not running, the site still works - blog content
 falls back to the bundled `client/src/studio/data/posts.js`, and the contact
 form surfaces a friendly error pointing to the email link.
 
+## Production build
+
+`npm run build` in `client/` runs three passes: the client build, an SSR
+build, and `scripts/prerender.mjs`, which renders every route to static HTML
+and generates `sitemap.xml` and `llms.txt` in `dist/`. Crawlers (including
+AI crawlers, which don't run JavaScript) get full page content; the React
+app takes over normally in the browser. Route metadata lives in
+`client/src/studio/seo.js` - including the production domain constant.
+
 ## API
 
 | Method | Route                | Purpose                          |

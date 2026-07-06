@@ -6,14 +6,15 @@ import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
 import { POSTS, fmtDate } from '../data/posts'
 import { apiPosts } from '../data/api'
-import { useDocumentTitle } from '../useDocumentTitle'
+import { useSeo } from '../useSeo'
+import { blogIndexMeta } from '../seo'
 import styles from '../studio.module.css'
 import '../studio.css'
 
 const ease = [0.16, 1, 0.3, 1]
 
 export default function BlogIndex() {
-  useDocumentTitle('Journal')
+  useSeo(blogIndexMeta())
   const [posts, setPosts] = useState(POSTS)
   useEffect(() => {
     window.scrollTo(0, 0)

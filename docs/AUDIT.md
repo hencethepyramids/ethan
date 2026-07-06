@@ -81,7 +81,8 @@ real, X removed*
   field. Blocks production.
 - **Confidence:** 100% (reproduced).
 
-### H2. Every blog date renders one day early in US timezones
+### H2. Every blog date renders one day early in US timezones - *resolved 2026-07-05: fmtDate
+now formats in UTC*
 - **File:** `client/src/studio/data/posts.js:74-75` (`fmtDate`)
 - **Verified:** `new Date('2026-05-18')` parses as UTC midnight; `toLocaleDateString` in
   `America/Chicago` renders **"May 17, 2026"**. Every date on the site is off by one for most US
@@ -146,13 +147,17 @@ marquee, spring scroll progress, and a forced 2.4 s intro (1.5 s count + 0.9 s l
 session - `Intro.jsx`). Add a global reduced-motion block that disables the loops and skips the
 intro; also consider honoring it in Framer Motion via `useReducedMotion`/`MotionConfig`.
 
-### M6. Google Fonts via CSS `@import`
+### M6. Google Fonts via CSS `@import` - *resolved 2026-07-05: moved to preconnect + link
+in index.html (self-hosting still a future option)*
 `studio.css:1` - discovered only after CSS parses (render-blocking, late font fetch, layout
 shift risk). Move to `<link rel="preconnect">` + `<link rel="stylesheet">` in `index.html`, or
 better, self-host the three families (also removes the third-party request - a GDPR nicety and
 one less external dependency).
 
-### M7. SEO package is half-finished
+### M7. SEO package is half-finished - *resolved 2026-07-05: og.png + full OG/Twitter tags,
+canonical, robots.txt (AI crawlers welcomed), build-generated sitemap.xml and llms.txt,
+per-route meta + JSON-LD (Person, WebSite, Blog, BlogPosting, SoftwareApplication), and
+build-time prerendering of every route so crawlers without JS see full HTML*
 `index.html` declares `twitter:card summary_large_image` with **no image**; no `og:image`,
 `og:url`, canonical URL, `robots.txt`, or `sitemap.xml` (public/ contains only favicon.svg and
 icons.svg); no per-route meta (blog posts share the homepage description); no structured data
@@ -170,7 +175,8 @@ All routes + all of framer-motion in one chunk. `React.lazy` the three secondary
 Motion's `LazyMotion`/`m` to drop the full `motion` runtime; realistic target is ~70-80 KB gzip
 initial. Not a blocker at this size, but it's a visible craft signal.
 
-### M10. Theme flash on first paint
+### M10. Theme flash on first paint - *resolved 2026-07-05: inline pre-paint script in
+index.html sets data-theme before render*
 `theme.jsx` sets `data-theme` in a React effect, so dark-mode users get a light flash on every
 load. Add a 3-line inline script in `index.html` `<head>` that sets `data-theme` before paint.
 Related: `theme-color` meta is hardcoded to the dark value regardless of active theme.

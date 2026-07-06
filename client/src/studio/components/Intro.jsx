@@ -4,8 +4,10 @@ import styles from '../studio.module.css'
 
 // One-time intro curtain: counts 0→100, then lifts to reveal the page.
 export default function Intro() {
+  // On the server (prerender) treat the intro as done so the static HTML
+  // that crawlers and no-JS visitors see is never hidden behind the curtain.
   const [done, setDone] = useState(
-    () => typeof window !== 'undefined' && sessionStorage.getItem('studioIntro') === '1'
+    () => typeof window === 'undefined' || sessionStorage.getItem('studioIntro') === '1'
   )
   const [count, setCount] = useState(0)
   const [leaving, setLeaving] = useState(false)

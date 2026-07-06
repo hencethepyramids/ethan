@@ -6,18 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0C0C0E" />
 
-    <title>Ethan Ellerstein - AI · Full-stack · Security</title>
-    <meta name="description" content="Ethan Ellerstein - an engineer who ships AI products, builds the full-stack around them, and secures what he makes. Range is the point." />
-    <meta name="author" content="Ethan Ellerstein" />
+    <!-- Set the theme before first paint so dark-mode users never see a flash. -->
+    <script>
+      try {
+        var t = localStorage.getItem('studioTheme')
+          || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        document.documentElement.setAttribute('data-theme', t)
+      } catch (e) {}
+    </script>
 
-    <!-- Open Graph / social -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- The block below is the landing page's head; scripts/prerender.mjs
+         swaps it per route at build time. Keep the markers. -->
+    <!--seo-->
+    <title>Ethan Ellerstein - AI · Full-stack · Security</title>
+    <meta name="description" content="Ethan Ellerstein is a software engineer who ships AI products, builds the full-stack around them, and secures what he makes. Range is the point." />
+    <meta name="author" content="Ethan Ellerstein" />
+    <link rel="canonical" href="https://ethanellerstein.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ethanellerstein.com/" />
     <meta property="og:title" content="Ethan Ellerstein - AI · Full-stack · Security" />
-    <meta property="og:description" content="An engineer who ships AI products, builds the full-stack around them, and secures what he makes." />
+    <meta property="og:description" content="Ethan Ellerstein is a software engineer who ships AI products, builds the full-stack around them, and secures what he makes. Range is the point." />
     <meta property="og:site_name" content="Ethan Ellerstein" />
+    <meta property="og:image" content="https://ethanellerstein.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ethan Ellerstein - AI · Full-stack · Security" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ethan Ellerstein - AI · Full-stack · Security" />
-    <meta name="twitter:description" content="An engineer who ships AI products, builds the full-stack around them, and secures what he makes." />
+    <meta name="twitter:description" content="Ethan Ellerstein is a software engineer who ships AI products, builds the full-stack around them, and secures what he makes. Range is the point." />
+    <meta name="twitter:image" content="https://ethanellerstein.com/og.png" />
+    <!--/seo-->
   </head>
   <body>
     <div id="root"></div>

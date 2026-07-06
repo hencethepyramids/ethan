@@ -5,7 +5,8 @@ import StudioNav from '../components/StudioNav'
 import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
 import { getProject, PROJECTS } from '../data/projects'
-import { useDocumentTitle } from '../useDocumentTitle'
+import { useSeo } from '../useSeo'
+import { projectMeta } from '../seo'
 import styles from '../studio.module.css'
 import '../studio.css'
 
@@ -22,7 +23,7 @@ export default function WorkDetail() {
   const navigate = useNavigate()
   const project = getProject(slug)
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
-  useDocumentTitle(project ? project.title : 'Work')
+  useSeo(project ? projectMeta(project) : null)
 
   if (!project) return <Navigate to="/" replace />
 

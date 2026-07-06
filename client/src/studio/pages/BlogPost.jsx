@@ -6,7 +6,8 @@ import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
 import { getPost, POSTS, fmtDate } from '../data/posts'
 import { apiPost } from '../data/api'
-import { useDocumentTitle } from '../useDocumentTitle'
+import { useSeo } from '../useSeo'
+import { postMeta } from '../seo'
 import styles from '../studio.module.css'
 import '../studio.css'
 
@@ -25,7 +26,7 @@ export default function BlogPost() {
     window.scrollTo(0, 0)
     apiPost(slug).then((p) => { if (p) setPost(p) }).catch(() => {})
   }, [slug])
-  useDocumentTitle(post ? post.title : 'Journal')
+  useSeo(post ? postMeta(post) : null)
 
   if (!post) return <Navigate to="/blog" replace />
 
