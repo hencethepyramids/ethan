@@ -50,9 +50,9 @@ function Reveal({ children, delay = 0, className }) {
 
 const STATS = [
   { to: 5, suffix: '+', label: 'Years building' },
-  { to: 20, suffix: '+', label: 'Projects shipped' },
+  { to: 1, suffix: '', label: 'Product live' },
   { to: 3, suffix: '', label: 'Domains, one builder' },
-  { to: 100, suffix: '%', label: 'Curiosity' },
+  { to: 0, suffix: '', label: 'Trackers shipped' },
 ]
 const TECH = ['AZURE OPENAI', 'REACT', '.NET', 'TYPESCRIPT', 'COPILOT STUDIO', 'POSTGRESQL', 'PEN TESTING', 'NODE.JS', 'POWER PLATFORM']
 const CYCLE = ['AI agents', 'web platforms', 'security tools', 'copilots']
