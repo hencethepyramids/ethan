@@ -52,6 +52,8 @@ backend hardening, half day a11y/SEO, half day deploy config + git, remainder mi
   the single most damaging bug on the site. It reads as "shipped without checking".
 - **Fix:** Point at real profiles, or remove icons for profiles that don't exist. Blocks launch.
 - **Confidence:** 100%.
+- *Update 2026-07-05: GitHub now points at the real profile. LinkedIn and X still placeholders —
+  fix or remove before launch.*
 
 ### C2. Placeholder projects/blog presented as real work
 - **Files:** `client/src/studio/data/projects.js` (all 5 projects), `client/src/studio/data/posts.js:1`
@@ -62,6 +64,8 @@ backend hardening, half day a11y/SEO, half day deploy config + git, remainder mi
 - **Fix:** Replace with 2–3 real projects (Watchwall is real — use it) with repo/demo links;
   keep only stats you can defend. Blocks launch.
 - **Confidence:** 95% (content authenticity is yours to confirm).
+- *Update 2026-07-05: projects replaced with Watchwall (linked to watchwall.app). Still open:
+  the STATS block and the blog posts' authenticity are Ethan's to confirm.*
 
 ## HIGH
 
@@ -92,7 +96,8 @@ backend hardening, half day a11y/SEO, half day deploy config + git, remainder mi
 - **Fix:** Add a `loading` state: fetch first, fall back to local, redirect only after both miss.
 - **Confidence:** 95% (code-path analysis).
 
-### H4. No version control
+### H4. No version control — *resolved 2026-07-05: repo initialized and published to
+github.com/hencethepyramids/ethan (public)*
 - **Impact:** No history, no rollback, no PR-based review, and `/code-review ultra` can't run.
   For a portfolio, the *repo itself* is an exhibit — recruiters read commit history.
 - **Fix:** `git init`, commit in coherent chunks. Root `.gitignore` should also cover `docs/`
