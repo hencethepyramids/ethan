@@ -52,7 +52,7 @@ const STATS = [
   { to: 5, suffix: '+', label: 'Years building' },
   { to: 1, suffix: '', label: 'Product live' },
   { to: 3, suffix: '', label: 'Domains, one builder' },
-  { to: 0, suffix: '', label: 'Trackers shipped' },
+  { to: 1, suffix: '', label: 'More in the works' },
 ]
 const TECH = ['AZURE OPENAI', 'REACT', '.NET', 'TYPESCRIPT', 'COPILOT STUDIO', 'POSTGRESQL', 'PEN TESTING', 'NODE.JS', 'POWER PLATFORM']
 const CYCLE = ['AI agents', 'web platforms', 'security tools', 'copilots']
@@ -86,7 +86,7 @@ function Hero() {
       <motion.div className={styles.heroFoot}
         initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7, ease }}>
         <p className={styles.lead}>
-          Ethan Ellerstein — an engineer who ships AI products, builds the
+          Ethan Ellerstein - an engineer who ships AI products, builds the
           full-stack around them, and secures what he makes.
         </p>
         <div className={styles.currently}>
@@ -166,7 +166,7 @@ function Stats() {
 
 const DISCIPLINES = [
   { k: 'AI', t: 'Agents & copilots', d: 'Azure OpenAI, RAG, tool-calling, and copilots that actually ship.' },
-  { k: 'Full-stack', t: 'End-to-end products', d: 'React front-ends on C#/.NET services — built, shipped, maintained.' },
+  { k: 'Full-stack', t: 'End-to-end products', d: 'React front-ends on C#/.NET services - built, shipped, maintained.' },
   { k: 'Security', t: 'Offense & defense', d: 'A pen-tester’s instincts baked into everything I build.' },
 ]
 
@@ -181,14 +181,14 @@ function About() {
       <Reveal className={styles.aboutStatement}>
         <p>
           I’m a builder who works across <em>AI</em>, <em>full-stack engineering</em>,
-          and <em>security</em> — and I care most about the seams where they meet.
+          and <em>security</em> - and I care most about the seams where they meet.
         </p>
       </Reveal>
 
       <div className={styles.disciplines}>
         {DISCIPLINES.map((x, i) => (
           <Reveal key={x.k} delay={i * 0.08} className={styles.discipline}>
-            <span className={styles.discKey}>{String(i + 1).padStart(2, '0')} — {x.k}</span>
+            <span className={styles.discKey}>{String(i + 1).padStart(2, '0')} - {x.k}</span>
             <h3 className={styles.discTitle}>{x.t}</h3>
             <p className={styles.discDesc}>{x.d}</p>
           </Reveal>
@@ -200,7 +200,7 @@ function About() {
           I care equally about whether a button feels right to press and whether a
           system holds up under attack. Most days I’m building AI products on the
           Microsoft stack, engineering the full-stack around them, and
-          pressure-testing the result. Range isn’t a lack of focus — it’s the focus.
+          pressure-testing the result. Range isn’t a lack of focus - it’s the focus.
         </p>
       </Reveal>
     </section>
@@ -253,7 +253,7 @@ function Contact() {
       <Reveal delay={0.1} className={styles.contactGrid}>
         <div className={styles.contactLeft}>
           <p className={styles.contactNote}>
-            Have a project, a role, or just a good problem? Drop me a line —
+            Have a project, a role, or just a good problem? Drop me a line -
             I read everything.
           </p>
           <Magnetic strength={0.25}>
