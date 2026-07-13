@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import StudioNav from '../components/StudioNav'
 import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
+import PostLink from '../components/PostLink'
 import { POSTS, fmtDate } from '../data/posts'
 import { apiPosts } from '../data/api'
 import { useSeo } from '../useSeo'
@@ -49,10 +49,10 @@ export default function BlogIndex() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: i * 0.05, ease }}>
-            <Link to={`/blog/${p.slug}`} className={styles.blogRow}>
+            <PostLink post={p} className={styles.blogRow}>
               <div className={styles.blogRowTop}>
                 <span className={styles.blogRowDate}>{fmtDate(p.date)}</span>
-                <span className={styles.blogRowRead}>{p.read} read</span>
+                <span className={styles.blogRowRead}>{p.read ? `${p.read} read` : p.source}</span>
               </div>
               <h2 className={styles.blogRowTitle}>{p.title}</h2>
               <p className={styles.blogRowExcerpt}>{p.excerpt}</p>
@@ -60,9 +60,9 @@ export default function BlogIndex() {
                 <span className={styles.postTags}>
                   {p.tags.map((t) => <span key={t} className={styles.postTag}>{t}</span>)}
                 </span>
-                <span className={styles.blogRowLink}>Read article →</span>
+                <span className={styles.blogRowLink}>{p.url ? `Read on ${p.source} ↗` : 'Read article →'}</span>
               </div>
-            </Link>
+            </PostLink>
           </motion.div>
         ))}
       </section>

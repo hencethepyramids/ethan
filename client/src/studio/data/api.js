@@ -1,8 +1,13 @@
-// Thin API client for the ASP.NET Core backend. Every read falls back to the
-// bundled local data so the site stays fully functional even if the API is down.
+// Thin API client. Posts read from the ASP.NET Core backend when it's
+// running, falling back to the bundled local data - the site stays fully
+// functional even if the API is down, which is the normal case in
+// production (Hostinger serves the static build only; there's no server).
+// Contact submissions go straight to Web3Forms - a hosted form backend -
+// since a static host can't run the .NET API to receive them.
 import { POSTS, getPost } from './posts'
 
 const BASE = '/api'
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
 
 export async function apiPosts() {
   try {
@@ -26,12 +31,19 @@ export async function apiPost(slug) {
 }
 
 export async function apiContact(payload) {
-  const r = await fetch(`${BASE}/contact`, {
+  if (!WEB3FORMS_ACCESS_KEY) {
+    throw new Error('Contact form is not configured. Set VITE_WEB3FORMS_ACCESS_KEY - see README.')
+  }
+  const r = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `New message from ${payload.name} via ethanellerstein.com`,
+      ...payload,
+    }),
   })
   const data = await r.json().catch(() => ({}))
-  if (!r.ok) throw new Error(data.error || 'Something went wrong. Try the email link instead.')
+  if (!r.ok || !data.success) throw new Error(data.message || 'Something went wrong. Try the email link instead.')
   return data
 }

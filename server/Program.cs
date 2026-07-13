@@ -31,7 +31,7 @@ app.MapGet("/api/posts", () =>
 {
     var posts = LoadPosts()
         .OrderByDescending(p => p.Date)
-        .Select(p => new { p.Slug, p.Title, p.Date, p.Read, p.Tags, p.Excerpt });
+        .Select(p => new { p.Slug, p.Title, p.Date, p.Read, p.Tags, p.Excerpt, p.Url, p.Source });
     return Results.Ok(posts);
 });
 
@@ -42,34 +42,10 @@ app.MapGet("/api/posts/{slug}", (string slug) =>
     return post is null ? Results.NotFound(new { error = "Post not found." }) : Results.Ok(post);
 });
 
-// Contact - validate + persist to a JSON-lines log.
-app.MapPost("/api/contact", async (ContactMessage msg) =>
-{
-    if (string.IsNullOrWhiteSpace(msg.Name) ||
-        string.IsNullOrWhiteSpace(msg.Email) ||
-        string.IsNullOrWhiteSpace(msg.Message))
-        return Results.BadRequest(new { error = "Name, email, and message are all required." });
-
-    if (!msg.Email.Contains('@'))
-        return Results.BadRequest(new { error = "That email doesn't look right." });
-
-    Directory.CreateDirectory(dataDir);
-    var record = new
-    {
-        msg.Name,
-        msg.Email,
-        msg.Message,
-        ReceivedAt = DateTime.UtcNow.ToString("o")
-    };
-    await File.AppendAllTextAsync(
-        Path.Combine(dataDir, "contact-messages.jsonl"),
-        JsonSerializer.Serialize(record, json) + Environment.NewLine);
-
-    return Results.Ok(new { ok = true, message = "Thanks - I'll be in touch soon." });
-});
-
 app.Run();
 
-record ContactMessage(string Name, string Email, string Message);
 record Block(string Type, string Text);
-record Post(string Slug, string Title, string Date, string Read, string[] Tags, string Excerpt, Block[] Body);
+// Native posts have a Body and Read time; external posts (published on
+// another site) have a Url and Source instead.
+record Post(string Slug, string Title, string Date, string[] Tags, string Excerpt,
+    string? Read = null, Block[]? Body = null, string? Url = null, string? Source = null);

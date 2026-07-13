@@ -8,6 +8,7 @@ import Intro from '../components/Intro'
 import Magnetic from '../components/Magnetic'
 import ContactForm from '../components/ContactForm'
 import Socials from '../components/Socials'
+import PostLink from '../components/PostLink'
 import { POSTS, fmtDate } from '../data/posts'
 import { PROJECTS } from '../data/projects'
 import { useSeo } from '../useSeo'
@@ -52,8 +53,8 @@ function Reveal({ children, delay = 0, className }) {
 const STATS = [
   { to: 5, suffix: '+', label: 'Years building' },
   { to: 1, suffix: '', label: 'Product live' },
-  { to: 3, suffix: '', label: 'Domains, one builder' },
-  { to: 1, suffix: '', label: 'More in the works' },
+  { to: 5, suffix: '', label: 'Domains, one builder' },
+  { to: 1, suffix: '', label: 'More in the works', display: '∞' },
 ]
 const TECH = ['AZURE OPENAI', 'REACT', '.NET', 'TYPESCRIPT', 'COPILOT STUDIO', 'POSTGRESQL', 'PEN TESTING', 'NODE.JS', 'POWER PLATFORM']
 const CYCLE = ['AI agents', 'web platforms', 'security tools', 'copilots']
@@ -157,7 +158,7 @@ function Stats() {
     <section className={styles.stats}>
       {STATS.map((s, i) => (
         <Reveal key={s.label} delay={i * 0.08} className={styles.stat}>
-          <span className={styles.statNum}><CountUp to={s.to} suffix={s.suffix} /></span>
+          <span className={styles.statNum}>{s.display ?? <CountUp to={s.to} suffix={s.suffix} />}</span>
           <span className={styles.statLabel}>{s.label}</span>
         </Reveal>
       ))}
@@ -196,12 +197,12 @@ function About() {
         ))}
       </div>
 
-      <Reveal delay={0.1} className={styles.aboutBio}>
+      <Reveal delay={0.1} className={styles.aboutQuote}>
         <p>
           I care equally about whether a button feels right to press and whether a
           system holds up under attack. Most days I’m building AI products on the
           Microsoft stack, engineering the full-stack around them, and
-          pressure-testing the result. Range isn’t a lack of focus - it’s the focus.
+          pressure-testing the result. Range isn’t a lack of focus - <em>it’s the focus.</em>
         </p>
       </Reveal>
     </section>
@@ -225,15 +226,15 @@ function Journal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: i * 0.06, ease }}>
-            <Link to={`/blog/${p.slug}`} className={styles.postRow}>
+            <PostLink post={p} className={styles.postRow}>
               <span className={styles.postDate}>{fmtDate(p.date)}</span>
               <span className={styles.postTitle}>{p.title}</span>
               <span className={styles.postTags}>
                 {p.tags.map((t) => <span key={t} className={styles.postTag}>{t}</span>)}
               </span>
-              <span className={styles.postRead}>{p.read}</span>
-              <span className={styles.postArrow}>→</span>
-            </Link>
+              <span className={styles.postRead}>{p.read || p.source}</span>
+              <span className={styles.postArrow}>{p.url ? '↗' : '→'}</span>
+            </PostLink>
           </motion.div>
         ))}
       </div>

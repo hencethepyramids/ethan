@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import StudioNav from '../components/StudioNav'
 import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
+import PostLink from '../components/PostLink'
 import { getPost, POSTS, fmtDate } from '../data/posts'
 import { apiPost } from '../data/api'
 import { useSeo } from '../useSeo'
@@ -28,7 +29,12 @@ export default function BlogPost() {
   }, [slug])
   useSeo(post ? postMeta(post) : null)
 
+  useEffect(() => {
+    if (post?.url) window.location.replace(post.url)
+  }, [post])
+
   if (!post) return <Navigate to="/blog" replace />
+  if (post.url) return null // external post - redirecting out
 
   const idx = POSTS.findIndex((p) => p.slug === slug)
   const next = POSTS[(idx + 1) % POSTS.length]
@@ -61,9 +67,9 @@ export default function BlogPost() {
 
         <div className={styles.articleNav}>
           <span className={styles.articleNavLabel}>NEXT</span>
-          <Link to={`/blog/${next.slug}`} className={styles.articleNext}>
-            {next.title} <span>→</span>
-          </Link>
+          <PostLink post={next} className={styles.articleNext}>
+            {next.title} <span>{next.url ? '↗' : '→'}</span>
+          </PostLink>
         </div>
       </article>
 

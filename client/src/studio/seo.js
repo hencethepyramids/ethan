@@ -53,7 +53,7 @@ export const blogIndexMeta = () => ({
     blogPost: POSTS.map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,
-      url: `${SITE_URL}/blog/${p.slug}`,
+      url: p.url || `${SITE_URL}/blog/${p.slug}`,
       datePublished: p.date,
     })),
   })],
@@ -108,10 +108,11 @@ export const notFoundMeta = () => ({
 })
 
 // Every prerenderable route, used by the prerender script and sitemap.
+// External posts live on another site - they get no local route.
 export const routes = () => [
   { path: '/', meta: landingMeta() },
   { path: '/blog', meta: blogIndexMeta() },
-  ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, meta: postMeta(p) })),
+  ...POSTS.filter((p) => !p.url).map((p) => ({ path: `/blog/${p.slug}`, meta: postMeta(p) })),
   ...PROJECTS.map((p) => ({ path: `/work/${p.slug}`, meta: projectMeta(p) })),
   { path: '/404', meta: notFoundMeta() },
 ]

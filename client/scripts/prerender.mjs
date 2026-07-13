@@ -60,7 +60,7 @@ ${PROJECTS.map((p) => `- [${p.title}](${SITE_URL}/work/${p.slug}): ${p.tagline}$
 
 ## Journal posts
 
-${POSTS.map((p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}): ${p.excerpt}`).join('\n')}
+${POSTS.map((p) => `- [${p.title}](${p.url || `${SITE_URL}/blog/${p.slug}`}): ${p.excerpt}`).join('\n')}
 
 ## Profiles
 
