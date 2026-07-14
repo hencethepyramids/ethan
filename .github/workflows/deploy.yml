@@ -27,11 +27,10 @@ jobs:
         env:
           VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
 
-      # server-dir assumes ethanellerstein.com is the account's primary
-      # domain, whose document root is public_html/ at the FTP account's
-      # home directory. If it's an addon site under a multi-site plan,
-      # check hPanel > Files > File Manager for the real path (often
-      # domains/ethanellerstein.com/public_html/) and update this.
+      # The FTP account is rooted at the Hostinger account home, and the
+      # domain's document root lives under domains/<domain>/public_html/
+      # (verified 2026-07-14: /public_html/ at the FTP root is a stray,
+      # unserved directory).
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -39,4 +38,9 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: client/dist/
-          server-dir: /public_html/
+          server-dir: /domains/ethanellerstein.com/public_html/
+          # One-time wipe of the old 2024 Next.js site occupying the
+          # docroot (approved by Ethan 2026-07-14). REMOVE after the
+          # first successful deploy - it deletes and re-uploads
+          # everything on every run.
+          dangerous-clean-slate: true
