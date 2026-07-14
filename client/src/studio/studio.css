@@ -1,5 +1,6 @@
-/* Fonts load via <link> in index.html (preconnect + stylesheet) instead of a
-   CSS @import, which browsers discover late and block rendering on. */
+/* Self-hosted fonts (Vite inlines this @import at build time; the hero
+   face is additionally preloaded from index.html). */
+@import './fonts.css';
 
 /* Metric-locked fallback for the display face: if Archivo can't load
    (font CDN blocked by a privacy extension/VPN, offline), local Arial is

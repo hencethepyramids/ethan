@@ -31,7 +31,8 @@ ErrorDocument 404 /404.html
   # index.html - if that script changes, recompute:
   #   node -e "const s=require('fs').readFileSync('client/index.html','utf8').match(/<script>([\s\S]*?)<\/script>/)[1];console.log('sha256-'+require('crypto').createHash('sha256').update(s,'utf8').digest('base64'))"
   # style-src needs 'unsafe-inline' for Framer Motion's style attributes.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-yDONVKPJRi/ylDxEmLmdHwt0khjGvJTLdI8brKulGes='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'"
+  # Fonts are self-hosted, so font-src stays first-party.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-yDONVKPJRi/ylDxEmLmdHwt0khjGvJTLdI8brKulGes='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'"
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "DENY"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
