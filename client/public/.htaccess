@@ -1,0 +1,52 @@
+# Apache/LiteSpeed config for the static build on Hostinger.
+# Lives in client/public/ so Vite copies it into dist/ and the FTP deploy
+# ships it to public_html/.
+
+Options -Indexes
+
+# Every route is prerendered to <route>/index.html at build time, so real
+# files exist for every valid URL; anything else gets the prerendered 404.
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Canonical host + scheme: www -> apex, http -> https (301s).
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Serve /blog/x from /blog/x/index.html directly instead of letting
+  # mod_dir 301 to the trailing-slash URL (keeps served URLs matching the
+  # canonical/sitemap URLs, which have no trailing slash).
+  DirectorySlash Off
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html -f
+  RewriteRule ^ %{REQUEST_URI}/index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # The script-src hash covers the inline theme pre-paint script in
+  # index.html - if that script changes, recompute:
+  #   node -e "const s=require('fs').readFileSync('client/index.html','utf8').match(/<script>([\s\S]*?)<\/script>/)[1];console.log('sha256-'+require('crypto').createHash('sha256').update(s,'utf8').digest('base64'))"
+  # style-src needs 'unsafe-inline' for Framer Motion's style attributes.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-yDONVKPJRi/ylDxEmLmdHwt0khjGvJTLdI8brKulGes='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Vite content-hashes everything under /assets/ - cache forever. HTML is
+  # revalidated every visit so deploys show up immediately.
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|webp|svg|ico|txt|xml)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

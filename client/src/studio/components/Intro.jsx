@@ -6,8 +6,11 @@ import styles from '../studio.module.css'
 export default function Intro() {
   // On the server (prerender) treat the intro as done so the static HTML
   // that crawlers and no-JS visitors see is never hidden behind the curtain.
+  // Reduced-motion users skip the forced count-up + curtain lift entirely.
   const [done, setDone] = useState(
-    () => typeof window === 'undefined' || sessionStorage.getItem('studioIntro') === '1'
+    () => typeof window === 'undefined'
+      || sessionStorage.getItem('studioIntro') === '1'
+      || matchMedia('(prefers-reduced-motion: reduce)').matches
   )
   const [count, setCount] = useState(0)
   const [leaving, setLeaving] = useState(false)

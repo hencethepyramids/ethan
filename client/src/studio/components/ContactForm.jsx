@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { apiContact } from '../data/api'
 import styles from '../studio.module.css'
 
-const EMPTY = { name: '', email: '', message: '' }
+const EMPTY = { name: '', email: '', message: '', botcheck: false }
 
 export default function ContactForm() {
   const [form, setForm] = useState(EMPTY)
@@ -25,7 +25,7 @@ export default function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div className={styles.formDone}>
+      <div className={styles.formDone} role="status">
         <span className={styles.formDoneMark}>✓</span>
         <p className={styles.formDoneText}>Message sent. I’ll be in touch soon.</p>
         <button className={styles.formReset} onClick={() => setStatus('idle')}>Send another →</button>
@@ -37,23 +37,31 @@ export default function ContactForm() {
     <form className={styles.form} onSubmit={submit}>
       <div className={styles.formRow}>
         <div className={styles.field}>
-          <label className={styles.fieldLabel}>Name</label>
-          <input className={styles.input} type="text" value={form.name}
+          <label className={styles.fieldLabel} htmlFor="contact-name">Name</label>
+          <input className={styles.input} id="contact-name" type="text" name="name"
+            autoComplete="name" value={form.name}
             onChange={set('name')} placeholder="Your name" required />
         </div>
         <div className={styles.field}>
-          <label className={styles.fieldLabel}>Email</label>
-          <input className={styles.input} type="email" value={form.email}
+          <label className={styles.fieldLabel} htmlFor="contact-email">Email</label>
+          <input className={styles.input} id="contact-email" type="email" name="email"
+            autoComplete="email" value={form.email}
             onChange={set('email')} placeholder="you@email.com" required />
         </div>
       </div>
       <div className={styles.field}>
-        <label className={styles.fieldLabel}>Message</label>
-        <textarea className={styles.textarea} value={form.message}
+        <label className={styles.fieldLabel} htmlFor="contact-message">Message</label>
+        <textarea className={styles.textarea} id="contact-message" name="message"
+          value={form.message}
           onChange={set('message')} placeholder="What are you building?" rows={4} required />
       </div>
 
-      {status === 'error' && <p className={styles.formError}>{error}</p>}
+      {/* Honeypot: Web3Forms discards submissions where botcheck is truthy. */}
+      <input className={styles.botcheck} type="checkbox" name="botcheck" tabIndex={-1}
+        autoComplete="off" aria-hidden="true" checked={form.botcheck}
+        onChange={(e) => setForm((f) => ({ ...f, botcheck: e.target.checked }))} />
+
+      {status === 'error' && <p className={styles.formError} role="alert">{error}</p>}
 
       <button className={styles.submit} type="submit" disabled={status === 'sending'}>
         <span className={styles.submitLabel}>{status === 'sending' ? 'Sending…' : 'Send message'}</span>

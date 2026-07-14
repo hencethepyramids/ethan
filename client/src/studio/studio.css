@@ -46,3 +46,14 @@ html[data-theme="dark"] .studio-root {
 
 /* NOTE: animation keyframes live in studio.module.css so the CSS-module class
    references resolve to the same scoped names. */
+
+/* Reduced motion: collapse every CSS animation/transition (the hue-drift
+   loops, marquee, arrows) to effectively zero. Framer Motion is handled
+   separately via MotionConfig reducedMotion="user" in App.jsx. */
+@media (prefers-reduced-motion: reduce) {
+  .studio-root *, .studio-root *::before, .studio-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

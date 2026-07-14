@@ -71,7 +71,9 @@ real, X removed*
 
 ## HIGH
 
-### H1. Contact endpoint accepts unbounded input with no rate limiting - disk-fill DoS
+### H1. Contact endpoint accepts unbounded input with no rate limiting - disk-fill DoS -
+*resolved 2026-07-13: `/api/contact` removed entirely (prod host is static-only); submissions
+go to Web3Forms, which rate-limits server-side, plus a client honeypot field*
 - **File:** `server/Program.cs:46-69`
 - **Verified live:** a 2,000,000-character message returned `200 OK` and appended 2 MB to
   `contact-messages.jsonl`. Kestrel's default 28.6 MB body cap is the only limit, and there is no
@@ -115,7 +117,9 @@ github.com/hencethepyramids/ethan (public)*
 
 ## MEDIUM
 
-### M1. Missing security headers everywhere
+### M1. Missing security headers everywhere - *resolved 2026-07-13: `client/public/.htaccess`
+sets CSP (inline theme script allowed by hash), nosniff, Referrer-Policy, Permissions-Policy,
+X-Frame-Options, and HSTS; API is dev-only so needs none*
 No CSP, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, or HSTS on either the
 API responses or the static host plan. On Hostinger (Apache/LiteSpeed), set these in `.htaccess`;
 on the API, add a small middleware. A security-branded portfolio with no CSP is an easy ding from
@@ -130,18 +134,27 @@ exactly the audience you're courting.
   rewrite to `index.html`.
 - Note: Hostinger *shared* hosting cannot run .NET - the API needs their VPS tier or another
   host. Decide before building more on the API.
+- *Update 2026-07-13: decided - production is static-only (API stays a dev convenience), deploy
+  is GitHub Actions -> FTP, deep links are covered by prerendered per-route HTML plus an
+  `.htaccess` 404 fallback and https/www canonicalization. `UseUrls`/CORS are now dev-only
+  concerns and stay as-is.*
 
-### M3. No React error boundary
+### M3. No React error boundary - *resolved 2026-07-13: `ErrorBoundary.jsx` (self-contained,
+theme-aware styled fallback) wraps the app in `main.jsx`*
 Any render error blank-screens the entire site (`main.jsx` renders `App` bare). Add one error
 boundary with a styled fallback - it's ~20 lines and reads as senior judgment.
 
-### M4. Contact form accessibility
+### M4. Contact form accessibility - *resolved 2026-07-13: labels associated via
+`htmlFor`/`id`, `name` + `autocomplete` on inputs, `role="alert"` on errors and
+`role="status"` on the sent state, plus a Web3Forms honeypot*
 `ContactForm.jsx:40-53`: labels are not associated (`htmlFor`/`id` missing), inputs have no
 `name` or `autocomplete` attributes (breaks browser autofill - verified none exist in `src/`),
 and the error/success status is not announced (`aria-live` absent). Screen-reader users get
 placeholder text only.
 
-### M5. No `prefers-reduced-motion` support
+### M5. No `prefers-reduced-motion` support - *resolved 2026-07-13: global reduced-motion CSS
+block stills all animation/transition loops, `MotionConfig reducedMotion="user"` stills Framer
+Motion, and the intro curtain is skipped entirely*
 Zero matches in the codebase. The site runs ~20 infinite `hue-rotate` filter animations, a
 marquee, spring scroll progress, and a forced 2.4 s intro (1.5 s count + 0.9 s lift, every new
 session - `Intro.jsx`). Add a global reduced-motion block that disables the loops and skips the
@@ -165,7 +178,8 @@ icons.svg); no per-route meta (blog posts share the homepage description); no st
 for Google but thin for other crawlers/link unfurlers - the OG image is what shows when the site
 is shared in Slack/LinkedIn, which for a portfolio is a primary distribution channel.
 
-### M8. Contact messages go to a file nobody watches
+### M8. Contact messages go to a file nobody watches - *resolved 2026-07-13: Web3Forms emails
+every submission; the JSONL file no longer exists*
 Submissions land in a JSONL on the server with no email notification, no admin view, and no
 backup story. Functionally, messages will be discovered weeks late. Wire an SMTP/transactional
 email send (with the JSONL kept as an audit log), or at minimum document the retrieval process.

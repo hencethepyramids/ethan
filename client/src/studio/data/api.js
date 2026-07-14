@@ -34,13 +34,17 @@ export async function apiContact(payload) {
   if (!WEB3FORMS_ACCESS_KEY) {
     throw new Error('Contact form is not configured. Set VITE_WEB3FORMS_ACCESS_KEY - see README.')
   }
+  // Omit the honeypot unless a bot actually filled it, mirroring how HTML
+  // forms submit checkboxes (unchecked = absent).
+  const { botcheck, ...fields } = payload
   const r = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({
       access_key: WEB3FORMS_ACCESS_KEY,
       subject: `New message from ${payload.name} via ethanellerstein.com`,
-      ...payload,
+      ...fields,
+      ...(botcheck ? { botcheck } : {}),
     }),
   })
   const data = await r.json().catch(() => ({}))
