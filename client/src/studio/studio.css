@@ -1,6 +1,17 @@
 /* Fonts load via <link> in index.html (preconnect + stylesheet) instead of a
    CSS @import, which browsers discover late and block rendering on. */
 
+/* Metric-locked fallback for the display face: if Archivo can't load
+   (font CDN blocked by a privacy extension/VPN, offline), local Arial is
+   width-adjusted to Archivo's measured advance (hero line: 6.50em in
+   Archivo 900, 6.01em in raw Arial), so nowrap display lines occupy the
+   same space and always fit their boxes. */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial');
+  size-adjust: 108%;
+}
+
 /* reset - kills the default body margin (the "stacked paper" border) */
 html, body { margin: 0; padding: 0; }
 
