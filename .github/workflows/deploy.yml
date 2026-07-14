@@ -39,8 +39,3 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: client/dist/
           server-dir: /domains/ethanellerstein.com/public_html/
-          # One-time wipe of the old 2024 Next.js site occupying the
-          # docroot (approved by Ethan 2026-07-14). REMOVE after the
-          # first successful deploy - it deletes and re-uploads
-          # everything on every run.
-          dangerous-clean-slate: true
