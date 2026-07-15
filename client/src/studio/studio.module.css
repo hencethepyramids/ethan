@@ -9,11 +9,16 @@
 @keyframes iridDrift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
 
 /* iridescent text + bar helpers */
+/* NOTE for all inline background-clip:text spans: negative letter-spacing
+   ends the span's paint box INSIDE the last glyph's ink, which shaves the
+   trailing glyph flat (the "cut S" bug). padding-right extends the paint
+   box past the ink; the negative margin gives the space back to layout. */
 .irid {
   background: var(--irid); background-size: 220% auto;
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
   animation: iridDrift 26s linear infinite;
+  padding-right: 0.1em; margin-right: -0.1em;
 }
 .iridBar {
   background: var(--irid); background-size: 220% auto;
@@ -165,6 +170,7 @@
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
   animation: iridDrift 26s linear infinite;
+  padding-right: 0.1em; margin-right: -0.1em; /* see .irid note */
 }
 
 .heroFoot {
@@ -268,6 +274,7 @@
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
   animation: iridDrift 26s linear infinite;
+  padding-right: 0.08em; margin-right: -0.08em; /* see .irid note */
 }
 .disciplines {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -302,6 +309,7 @@
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
   animation: iridDrift 26s linear infinite;
+  padding-right: 0.08em; margin-right: -0.08em; /* see .irid note */
 }
 
 /* ───────── journal (landing preview) ───────── */
