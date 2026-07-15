@@ -1,9 +1,9 @@
-// Tab-state favicon: dark tile + white star while the tab is focused,
-// light tile + black star when it's in the background. Runs client-side
-// only (imported from main.jsx); the HTML link's default is the dark tile
-// so crawlers and the pre-JS moment show the brand mark.
-const FOCUSED = '/favicon-dark.png?v=6'
-const BACKGROUND = '/favicon-light.png?v=6'
+// Tab-state favicon: black star (white contour) while the tab is focused,
+// white star (black contour) when it's in the background. Runs client-side
+// only (imported from main.jsx); the HTML link's default matches the
+// focused state for crawlers and the pre-JS moment.
+const FOCUSED = '/favicon-light.png?v=6'
+const BACKGROUND = '/favicon-dark.png?v=6'
 
 const link = document.querySelector('link[rel="icon"]')
 
