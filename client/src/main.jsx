@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
+import './favicon.js'
 
 // createRoot (not hydrateRoot) on purpose: routes are prerendered for
 // crawlers and no-JS visitors, and React simply replaces that markup on

@@ -53,7 +53,7 @@ export default function StudioNav() {
       <div className={styles.navlinks}>
         <a href="#work" onClick={go('work')} className={styles.navlink}>Work</a>
         <a href="#about" onClick={go('about')} className={styles.navlink}>About</a>
-        <Link to="/blog" className={`${styles.navlink} ${loc.pathname.startsWith('/blog') ? styles.navlinkOn : ''}`}>Journal</Link>
+        <Link to="/blog" className={`${styles.navlink} ${loc.pathname.startsWith('/blog') ? styles.navlinkOn : ''}`}>Blog</Link>
         <a href="#contact" onClick={go('contact')} className={styles.navlink}>Contact</a>
       </div>
       <div className={styles.navRight}>
@@ -75,7 +75,7 @@ export default function StudioNav() {
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
           <a href="#work" onClick={go('work')} className={styles.mobileLink}>Work</a>
           <a href="#about" onClick={go('about')} className={styles.mobileLink}>About</a>
-          <Link to="/blog" onClick={() => setMenuOpen(false)} className={styles.mobileLink}>Journal</Link>
+          <Link to="/blog" onClick={() => setMenuOpen(false)} className={styles.mobileLink}>Blog</Link>
           <a href="#contact" onClick={go('contact')} className={styles.mobileLink}>Contact</a>
         </motion.div>
       )}

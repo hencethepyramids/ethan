@@ -51,14 +51,14 @@ const llms = `# Ethan Ellerstein
 
 ## Site
 
-- [Home](${SITE_URL}/): who Ethan is, selected work, journal, and contact
-- [Journal](${SITE_URL}/blog): writing on AI, engineering, security, and craft
+- [Home](${SITE_URL}/): who Ethan is, selected work, blog, and contact
+- [Blog](${SITE_URL}/blog): writing on AI, engineering, security, and craft
 
 ## Selected work
 
 ${PROJECTS.map((p) => `- [${p.title}](${SITE_URL}/work/${p.slug}): ${p.tagline}${p.link ? ` Live at ${p.link}` : ''}`).join('\n')}
 
-## Journal posts
+## Blog posts
 
 ${POSTS.map((p) => `- [${p.title}](${p.url || `${SITE_URL}/blog/${p.slug}`}): ${p.excerpt}`).join('\n')}
 

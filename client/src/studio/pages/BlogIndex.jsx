@@ -33,7 +33,7 @@ export default function BlogIndex() {
         </motion.div>
         <motion.h1 className={styles.blogTitle}
           initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
-          JOURNAL
+          BLOG
         </motion.h1>
         <motion.p className={styles.blogSub}
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.7, ease }}>

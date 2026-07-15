@@ -65,6 +65,37 @@ function Hero() {
     const id = setInterval(() => setWi((w) => (w + 1) % CYCLE.length), 2200)
     return () => clearInterval(id)
   }, [])
+
+  // Fit-guard: the title's CSS size assumes Archivo's metrics, but if the
+  // browser substitutes a wider face (font blockers, forced fonts), the
+  // nowrap lines overflow. Measure the real glyphs and squeeze font-size
+  // just enough to fit - self-correcting on any browser, font, or zoom.
+  const titleRef = useRef(null)
+  const [squeeze, setSqueeze] = useState(1)
+  useEffect(() => {
+    const h1 = titleRef.current
+    if (!h1) return
+    const fit = () => {
+      let widest = 0
+      for (const l of h1.querySelectorAll(`.${styles.line}`)) {
+        const prev = l.style.display
+        l.style.display = 'inline-block'
+        widest = Math.max(widest, l.getBoundingClientRect().width)
+        l.style.display = prev
+      }
+      setSqueeze((s) => {
+        if (!widest || !h1.clientWidth) return s
+        const next = Math.min(1, (h1.clientWidth / widest) * s * 0.99)
+        return Math.abs(next - s) > 0.01 ? next : s
+      })
+    }
+    fit()
+    document.fonts?.ready?.then(fit)
+    const ro = new ResizeObserver(fit)
+    ro.observe(h1)
+    return () => ro.disconnect()
+  }, [])
+
   const lineUp = {
     hidden: { y: '110%' },
     show: (i) => ({ y: '0%', transition: { duration: 0.9, delay: 0.15 + i * 0.12, ease } }),
@@ -76,7 +107,8 @@ function Hero() {
         <span className={styles.kickerLine} /> AI · FULL-STACK · SECURITY
       </motion.div>
 
-      <h1 className={styles.title}>
+      <h1 className={styles.title} ref={titleRef}
+        style={squeeze < 1 ? { fontSize: `calc(min(13cqi, 240px) * ${squeeze})` } : undefined}>
         <span className={styles.lineMask}>
           <motion.span className={styles.line} variants={lineUp} custom={0} initial="hidden" animate="show">BUILDER</motion.span>
         </span>
@@ -209,13 +241,13 @@ function About() {
   )
 }
 
-function Journal() {
+function Blog() {
   const latest = POSTS.slice(0, 3)
   return (
-    <section className={styles.journal} id="journal">
+    <section className={styles.journal} id="blog">
       <Reveal className={styles.secHead}>
         <span className={styles.secNum}>(03)</span>
-        <h2 className={styles.secTitle}>JOURNAL</h2>
+        <h2 className={styles.secTitle}>BLOG</h2>
         <Link to="/blog" className={styles.secLink}>View all →</Link>
       </Reveal>
 
@@ -286,7 +318,7 @@ export default function Landing() {
       <Work />
       <Stats />
       <About />
-      <Journal />
+      <Blog />
       <Contact />
       <StudioFooter />
     </div>

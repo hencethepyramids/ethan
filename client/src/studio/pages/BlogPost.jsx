@@ -48,7 +48,7 @@ export default function BlogPost() {
       <article className={styles.article}>
         <motion.div className={styles.articleHead}
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
-          <Link to="/blog" className={styles.backLink}>← Journal</Link>
+          <Link to="/blog" className={styles.backLink}>← Blog</Link>
           <div className={styles.articleMeta}>
             <span>{fmtDate(post.date)}</span>
             <span className={styles.metaDot}>·</span>

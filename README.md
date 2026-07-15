@@ -1,7 +1,7 @@
 # Ethan Ellerstein - Portfolio
 
 A monochrome studio portfolio with an iridescent accent system, a blog
-("Journal") that mixes native posts with links to articles published
+that mixes native posts with links to articles published
 elsewhere, and a contact form.
 
 ## Stack

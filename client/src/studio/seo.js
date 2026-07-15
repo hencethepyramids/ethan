@@ -41,13 +41,13 @@ export const landingMeta = () => ({
 
 export const blogIndexMeta = () => ({
   path: '/blog',
-  title: `Journal - ${SITE_NAME}`,
+  title: `Blog - ${SITE_NAME}`,
   description:
     'Thinking out loud about AI, engineering, security, and the craft of building things that last.',
   ogType: 'website',
   jsonld: [ld({
     '@type': 'Blog',
-    name: `${SITE_NAME} - Journal`,
+    name: `${SITE_NAME} - Blog`,
     url: `${SITE_URL}/blog`,
     author: person,
     blogPost: POSTS.map((p) => ({
