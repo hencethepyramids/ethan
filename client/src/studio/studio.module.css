@@ -150,7 +150,15 @@
   font-size: min(13cqi, 240px);
   line-height: 0.82; letter-spacing: -0.05em;
 }
-.lineMask { display: block; overflow: hidden; padding: 0 0.04em; margin: 0 -0.04em; }
+.lineMask {
+  display: block; padding: 0 0.04em; margin: 0 -0.04em;
+  /* The mask exists only for the vertical slide-up reveal. Never clip
+     horizontally: if a line somehow outgrows its box (exotic font,
+     zoom, transient resize state), it bleeds into the gutter instead
+     of amputating glyphs. First line is the old-browser fallback. */
+  overflow: hidden;
+  overflow: visible clip;
+}
 .line { display: block; white-space: nowrap; }
 .accentWord {
   background: var(--irid); background-size: 220% auto;
