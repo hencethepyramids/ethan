@@ -152,9 +152,11 @@ boundary with a styled fallback - it's ~20 lines and reads as senior judgment.
 and the error/success status is not announced (`aria-live` absent). Screen-reader users get
 placeholder text only.
 
-### M5. No `prefers-reduced-motion` support - *resolved 2026-07-13: global reduced-motion CSS
-block stills all animation/transition loops, `MotionConfig reducedMotion="user"` stills Framer
-Motion, and the intro curtain is skipped entirely*
+### M5. No `prefers-reduced-motion` support - *resolved 2026-07-13, then deliberately REVERTED
+2026-07-15 by owner decision: too many machines carry the OS flag without the user's knowledge
+(Windows performance modes set it), hiding the site's character from unwitting visitors. The
+site now animates for everyone; the marquee retains pause-on-hover. Accepted trade-off, owner's
+call - restore the kill-switch from commit e7a8a79 if ever revisited.*
 Zero matches in the codebase. The site runs ~20 infinite `hue-rotate` filter animations, a
 marquee, spring scroll progress, and a forced 2.4 s intro (1.5 s count + 0.9 s lift, every new
 session - `Intro.jsx`). Add a global reduced-motion block that disables the loops and skips the

@@ -482,26 +482,6 @@
 .notFoundLink { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
 .notFoundLink:hover { color: var(--accent); border-color: var(--accent); }
 
-/* ───────── reduced motion ───────── */
-@media (prefers-reduced-motion: reduce) {
-  /* The iridescent hue drift is a slow color cycle, not spatial motion -
-     reduced-motion is about movement, so the drift stays alive while the
-     global kill-switch in studio.css stills everything that moves
-     (marquee, bob, transforms). The .root prefix outranks that switch's
-     `.studio-root *` selector so these !importants win regardless of
-     bundle order. */
-  .root :is(.irid, .iridBar, .scrollProgress, .introProgress, .kickerLine,
-      .accentWord, .marqueeDot, .secNum, .discKey, .contactBig, .blogTitle,
-      .notFoundCode, .formDoneMark, .aboutStatement em, .aboutQuote em),
-  .root .navlink::after,
-  .root .workRow::before,
-  .root .aboutQuote::before,
-  .root .submit::before {
-    animation-duration: 26s !important;
-    animation-iteration-count: infinite !important;
-  }
-}
-
 /* ───────── responsive ───────── */
 @media (max-width: 760px) {
   .stats { grid-template-columns: repeat(2, 1fr); }

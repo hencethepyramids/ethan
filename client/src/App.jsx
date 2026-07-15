@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom'
-import { MotionConfig } from 'framer-motion'
 import { ThemeProvider } from './studio/theme'
 import Landing from './studio/pages/Landing'
 import WorkDetail from './studio/pages/WorkDetail'
@@ -12,17 +11,15 @@ import NotFound from './studio/pages/NotFound'
 export default function App() {
   return (
     <ThemeProvider>
-      {/* reducedMotion="user" stills Motion's transform animations when the
-          OS asks for reduced motion; CSS loops are stilled in studio.css. */}
-      <MotionConfig reducedMotion="user">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/work/:slug" element={<WorkDetail />} />
-          <Route path="/blog" element={<BlogIndex />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </MotionConfig>
+      {/* Animations run for everyone by owner decision (2026-07-15) -
+          see the reduced-motion note in studio.css. */}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/work/:slug" element={<WorkDetail />} />
+        <Route path="/blog" element={<BlogIndex />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </ThemeProvider>
   )
 }
