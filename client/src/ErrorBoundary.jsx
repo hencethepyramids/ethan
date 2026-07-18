@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { Sentry } from './sentry.js'
 
 // Last-resort catch: any render error below this replaces a blank screen
 // with a styled fallback. Deliberately self-contained (class component,
@@ -18,6 +19,7 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     console.error('Unhandled render error:', error, info.componentStack)
+    Sentry.captureException(error, { extra: { componentStack: info.componentStack } })
   }
 
   render() {
