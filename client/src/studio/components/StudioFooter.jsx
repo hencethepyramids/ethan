@@ -6,7 +6,6 @@ export default function StudioFooter() {
     <footer className={styles.footer}>
       <span>© 2026 Ethan Ellerstein</span>
       <a href="#top" onClick={toTop} className={styles.toTop}>BACK TO TOP ↑</a>
-      <span>MINNESOTA</span>
     </footer>
   )
 }

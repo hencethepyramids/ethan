@@ -120,8 +120,16 @@ function Hero() {
       <motion.div className={styles.heroFoot}
         initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7, ease }}>
         <p className={styles.lead}>
-          Ethan Ellerstein - an engineer who ships AI products, builds the
-          full-stack around them, and secures what he makes.
+          {'Ethan Ellerstein - an engineer who ships AI products, builds the full-stack around them, and secures what he makes.'
+            .split(' ')
+            .map((word, i) => (
+              <motion.span key={i}
+                className={`${styles.leadWord} ${['AI', 'products,', 'full-stack', 'secures'].includes(word) ? styles.leadHi : ''} ${i < 2 ? styles.leadName : ''}`}
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 + i * 0.04, duration: 0.45, ease }}>
+                {word}
+              </motion.span>
+            ))}
         </p>
         <div className={styles.currently}>
           <span className={styles.curLabel}>CURRENTLY BUILDING</span>

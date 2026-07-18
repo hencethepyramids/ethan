@@ -32,6 +32,19 @@ export default function StudioNav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // While the mobile menu is open: lock page scroll and close on Escape.
+  useEffect(() => {
+    if (!menuOpen) return
+    const prev = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.documentElement.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [menuOpen])
+
   const go = (id) => (e) => {
     e.preventDefault()
     setMenuOpen(false)
@@ -48,7 +61,7 @@ export default function StudioNav() {
     <motion.div className={styles.scrollProgress} style={{ scaleX: progress }} />
     <nav className={`${styles.nav} ${scrolled || !onLanding ? styles.navOn : ''}`}>
       <a href="/" onClick={go('top')} className={styles.brand}>
-        ETHAN ELLERSTEIN<span className={styles.copy}>©26</span>
+        ETHAN ELLERSTEIN
       </a>
       <div className={styles.navlinks}>
         <a href="#work" onClick={go('work')} className={styles.navlink}>Work</a>
@@ -73,10 +86,20 @@ export default function StudioNav() {
         <motion.div className={styles.mobileMenu}
           initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-          <a href="#work" onClick={go('work')} className={styles.mobileLink}>Work</a>
-          <a href="#about" onClick={go('about')} className={styles.mobileLink}>About</a>
-          <Link to="/blog" onClick={() => setMenuOpen(false)} className={styles.mobileLink}>Blog</Link>
-          <a href="#contact" onClick={go('contact')} className={styles.mobileLink}>Contact</a>
+          <button className={styles.menuClose} onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
+          {[
+            <a key="work" href="#work" onClick={go('work')} className={styles.mobileLink}>Work</a>,
+            <a key="about" href="#about" onClick={go('about')} className={styles.mobileLink}>About</a>,
+            <Link key="blog" to="/blog" onClick={() => setMenuOpen(false)} className={styles.mobileLink}>Blog</Link>,
+            <a key="contact" href="#contact" onClick={go('contact')} className={styles.mobileLink}>Contact</a>,
+          ].map((link, i) => (
+            <motion.div key={link.key}
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
+              {link}
+            </motion.div>
+          ))}
         </motion.div>
       )}
     </AnimatePresence>
