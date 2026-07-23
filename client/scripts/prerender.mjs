@@ -56,7 +56,13 @@ const llms = `# Ethan Ellerstein
 
 ## Selected work
 
-${PROJECTS.map((p) => `- [${p.title}](${SITE_URL}/work/${p.slug}): ${p.tagline}${p.link ? ` Live at ${p.link}` : ''}`).join('\n')}
+${PROJECTS.map((p) => {
+  const href = p.body ? `${SITE_URL}/work/${p.slug}` : p.external
+  const extra = p.soon ? ' (coming soon)' : p.link ? ` Live at ${p.link}` : ''
+  return href
+    ? `- [${p.title}](${href}): ${p.tagline}${extra}`
+    : `- ${p.title}${extra}: ${p.tagline}`
+}).join('\n')}
 
 ## Blog posts
 

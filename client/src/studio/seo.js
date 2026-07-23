@@ -2,7 +2,7 @@
 // JSON-LD. Consumed by the useSeo hook (client-side updates), the prerender
 // script (static heads + sitemap + llms.txt), and entry-server.jsx.
 import { POSTS } from './data/posts'
-import { PROJECTS } from './data/projects'
+import { CASE_STUDIES } from './data/projects'
 
 // Production origin. Change here (and rebuild) if the domain differs.
 export const SITE_URL = 'https://ethanellerstein.com'
@@ -114,7 +114,7 @@ export const routes = () => [
   { path: '/', meta: landingMeta() },
   { path: '/blog', meta: blogIndexMeta() },
   ...POSTS.filter((p) => !p.url).map((p) => ({ path: `/blog/${p.slug}`, meta: postMeta(p) })),
-  ...PROJECTS.map((p) => ({ path: `/work/${p.slug}`, meta: projectMeta(p) })),
+  ...CASE_STUDIES.map((p) => ({ path: `/work/${p.slug}`, meta: projectMeta(p) })),
   { path: '/404', meta: notFoundMeta() },
 ]
 

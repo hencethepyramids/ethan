@@ -281,6 +281,20 @@
 .workArrow { color: var(--accent); font-size: 16px; opacity: 0; transform: translate(-6px, 6px); transition: opacity 0.25s, transform 0.25s; }
 .workRow:hover .workArrow { opacity: 1; transform: translate(0,0); }
 
+/* Coming-soon rows: present but not yet clickable. Cancel the hover lift, the
+   iridescent bar, and the title accent so they read as inert placeholders. */
+.workRowSoon { cursor: default; grid-template-columns: 60px 1fr auto auto auto; }
+.workRowSoon .workTitle { color: var(--dim); }
+.workRowSoon:hover { padding-left: 8px; }
+.workRowSoon:hover::before { transform: scaleY(0); }
+.workRowSoon:hover .workTitle { color: var(--dim); }
+.workSoon {
+  justify-self: end; white-space: nowrap;
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 4px 10px;
+}
+
 /* ───────── stats ───────── */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
 .stat { padding: 48px var(--pad); border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 10px; }

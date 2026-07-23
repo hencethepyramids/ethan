@@ -1,6 +1,11 @@
 // Project / case-study data. Mirrors the posts shape so it can later be served
 // from the API the same way the blog is. `link` (optional) renders as an
 // external "visit" link on the case-study page.
+//
+// A project is a full case study when it has a `body`. The other two shapes
+// show up in the Selected Work list but have no `/work/:slug` page:
+//   - `external`: the row links straight out to another site (new tab).
+//   - `soon`: the row is a non-clickable "coming soon" placeholder.
 
 export const PROJECTS = [
   {
@@ -22,6 +27,28 @@ export const PROJECTS = [
       { type: 'quote', text: 'A desktop app is a trust decision. The security work is the product, even when nobody sees it.' },
     ],
   },
+  {
+    slug: 'optimum-delivery-service',
+    n: '02',
+    title: 'Optimum Delivery Service',
+    cat: 'Web',
+    year: '2025',
+    external: 'https://optimumdeliveryservicellc.com',
+    tagline: 'Website for a family-run courier and delivery business.',
+  },
+  {
+    slug: 'lawlens',
+    n: '03',
+    title: 'Law Lens',
+    cat: 'AI',
+    year: '2026',
+    soon: true,
+    tagline: 'Turns complex legal and bureaucratic language into plain, actionable English.',
+  },
 ]
 
 export const getProject = (slug) => PROJECTS.find((p) => p.slug === slug)
+
+// Only projects with a written case study get a `/work/:slug` page. External
+// and coming-soon entries appear in the list but have no detail route.
+export const CASE_STUDIES = PROJECTS.filter((p) => p.body)

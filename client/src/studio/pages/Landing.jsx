@@ -52,7 +52,7 @@ function Reveal({ children, delay = 0, className }) {
 
 const STATS = [
   { to: 5, suffix: '+', label: 'Years building' },
-  { to: 1, suffix: '', label: 'Product live' },
+  { to: 2, suffix: '', label: 'Products live' },
   { to: 5, suffix: '', label: 'Domains, one builder' },
   { to: 1, suffix: '', label: 'More in the works', display: '∞' },
 ]
@@ -163,6 +163,28 @@ function Marquee() {
   )
 }
 
+function WorkRow({ p }) {
+  const inner = (
+    <>
+      <span className={styles.workNum}>{p.n}</span>
+      <span className={styles.workTitle}>{p.title}</span>
+      <span className={styles.workCat}>{p.cat}</span>
+      <span className={styles.workYear}>{p.soon ? '—' : `’${p.year.slice(2)}`}</span>
+      {p.soon
+        ? <span className={styles.workSoon}>Soon</span>
+        : <span className={styles.workArrow}>↗</span>}
+    </>
+  )
+
+  if (p.soon) {
+    return <div className={`${styles.workRow} ${styles.workRowSoon}`} aria-disabled="true" title="Coming soon">{inner}</div>
+  }
+  if (p.external) {
+    return <a className={styles.workRow} href={p.external} target="_blank" rel="noopener noreferrer" title={p.tagline}>{inner}</a>
+  }
+  return <Link to={`/work/${p.slug}`} className={styles.workRow}>{inner}</Link>
+}
+
 function Work() {
   return (
     <section className={styles.work} id="work">
@@ -179,13 +201,7 @@ function Work() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: i * 0.05, ease }}>
-            <Link to={`/work/${p.slug}`} className={styles.workRow}>
-              <span className={styles.workNum}>{p.n}</span>
-              <span className={styles.workTitle}>{p.title}</span>
-              <span className={styles.workCat}>{p.cat}</span>
-              <span className={styles.workYear}>’{p.year.slice(2)}</span>
-              <span className={styles.workArrow}>↗</span>
-            </Link>
+            <WorkRow p={p} />
           </motion.div>
         ))}
       </div>

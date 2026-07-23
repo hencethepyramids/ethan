@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import StudioNav from '../components/StudioNav'
 import StudioFooter from '../components/StudioFooter'
 import Grain from '../components/Grain'
-import { getProject, PROJECTS } from '../data/projects'
+import { getProject, CASE_STUDIES } from '../data/projects'
 import { useSeo } from '../useSeo'
 import { projectMeta } from '../seo'
 import styles from '../studio.module.css'
@@ -25,10 +25,12 @@ export default function WorkDetail() {
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
   useSeo(project ? projectMeta(project) : null)
 
-  if (!project) return <Navigate to="/" replace />
+  // Only case studies (projects with a written `body`) have a detail page.
+  // External and coming-soon entries have no article, so bounce them home.
+  if (!project || !project.body) return <Navigate to="/" replace />
 
-  const idx = PROJECTS.findIndex((p) => p.slug === slug)
-  const next = PROJECTS[(idx + 1) % PROJECTS.length]
+  const idx = CASE_STUDIES.findIndex((p) => p.slug === slug)
+  const next = CASE_STUDIES[(idx + 1) % CASE_STUDIES.length]
   const backToWork = (e) => {
     e.preventDefault(); navigate('/')
     setTimeout(() => document.getElementById('work')?.scrollIntoView(), 80)
